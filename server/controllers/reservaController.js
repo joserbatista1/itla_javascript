@@ -56,10 +56,12 @@ function reservasPorRestaurante(req, res) {
   res.json(lista);
 }
 function irReservaciones() {
-  const element = document.getElementById('reservaciones');
+  const element = document.getElementById('reservas');
   if (element) {
     element.scrollIntoView({ behavior: 'smooth' });
   }
+
+  
 }
 
 
