@@ -1,6 +1,6 @@
 export default function ReservasList({ reservas, restaurante, hora }) {
   return (
-    <div className="my-6">
+    <div id="reservas" className="my-6">
       <h2 className="text-xl font-semibold mb-2">
         Reservas en {restaurante} a las {hora}
       </h2>

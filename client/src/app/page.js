@@ -52,6 +52,12 @@ export default function HomePage() {
     const data = await res.json();
     setForm(f => ({ ...f, restaurante }));
     setReservas(data);
+
+     const element = document.getElementById('reservas');
+      if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+    }
+
   };
 
   return (

@@ -55,8 +55,16 @@ function reservasPorRestaurante(req, res) {
   );
   res.json(lista);
 }
+function irReservaciones() {
+  const element = document.getElementById('reservaciones');
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+}
+
 
 module.exports = {
+  irReservaciones,
   realizarReserva,
   verReservas,
   reservasPorRestaurante
