@@ -24,7 +24,7 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    fetch(`https://server-production-2e7c.up.railway.app/api/reservas/api/reservas?hora=${hora}`)
+    fetch(`https://server-production-2e7c.up.railway.app/api/reservas?hora=${hora}`)
       .then(res => res.json())
       .then(setDisponibilidad);
   }, [hora]);
