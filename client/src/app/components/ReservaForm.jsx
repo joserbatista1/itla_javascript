@@ -65,7 +65,7 @@ export default function ReservaForm({ form, setForm, restaurantes, handleSubmit 
 
     <button
      type="submit"
-     className="block mx-auto bg-white text-black px-4 py-2 rounded hover:bg-gray-700 hover:text-white max-w-2xl"
+     className="block mx-auto bg-gray-400 text-black px-4 py-2 rounded hover:bg-gray-700 hover:text-white max-w-2xl"
       >
       Reservar
     </button>
