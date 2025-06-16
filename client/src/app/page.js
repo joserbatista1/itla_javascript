@@ -31,7 +31,7 @@ export default function HomePage() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch("http://localhost:3001/api/reservas", {
+    const res = await fetch("https://server-production-2e7c.up.railway.app/api/reservas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
@@ -39,7 +39,7 @@ export default function HomePage() {
     if (res.ok) {
       alert("Reserva realizada");
       setForm(f => ({ ...f, nombre: "", cantidad: 1 }));
-      const dispo = await fetch(`http://localhost:3001/api/reservas?hora=${hora}`).then(r => r.json());
+      const dispo = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas?hora=${hora}`).then(r => r.json());
       setDisponibilidad(dispo);
     } else {
       const err = await res.json();
@@ -48,7 +48,7 @@ export default function HomePage() {
   };
 
   const verReservas = async restaurante => {
-    const res = await fetch(`http://localhost:3001/api/reservas/${restaurante}/${hora}`);
+    const res = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas/${restaurante}/${hora}`);
     const data = await res.json();
     setForm(f => ({ ...f, restaurante }));
     setReservas(data);
