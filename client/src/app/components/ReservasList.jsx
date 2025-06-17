@@ -18,7 +18,7 @@ export default function ReservasList({ reservas, restaurante, hora,handleElimina
       <button
         type="button"
         onClick={() => handleEliminar(r.id)}
-        className="text-sm px-3 py-1 bg-gray-200 text-gray-400 rounded hover:bg-gray-200 transition"
+        className="text-sm px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-400 transition"
       >
         Eliminar
       </button>
