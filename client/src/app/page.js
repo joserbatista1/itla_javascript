@@ -59,13 +59,29 @@ export default function HomePage() {
     }
 
   };
+  const handleEliminar = async (id) => {
+  try {
+    const res = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (res.ok) {
+      setReservas((prev) => prev.filter((r) => r.id !== id));
+    } else {
+      console.error('Error al eliminar la reserva');
+    }
+  } catch (error) {
+    console.error('Error de red:', error);
+  }
+};
+
 
   return (
     <div className="space-y-6">
       <HoraSelector hora={hora} setHora={setHora} />
       <DisponibilidadList disponibilidad={disponibilidad} onVerReservas={verReservas} />
       <ReservaForm form={form} setForm={setForm} restaurantes={restaurantes} handleSubmit={handleSubmit} />
-      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} />
+      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} handleEliminar={handleEliminar} />
     </div>
   );
 }
