@@ -61,7 +61,7 @@ export default function HomePage() {
   };
   const handleEliminar = async (id) => {
   try {
-    const res = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas/eliminar/id=${id}`, {
+    const res = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas/eliminar/${id}`, {
       method: 'DELETE',
     });
 
