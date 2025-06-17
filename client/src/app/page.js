@@ -68,7 +68,7 @@ export default function HomePage() {
     if (res.ok) {
       setReservas((prev) => prev.filter((r) => r.id !== id));
     } else {
-      console.error('Error al eliminar la reserva');
+      console.error(`Error al eliminar la reserva ${res.status}`);
     }
   } catch (error) {
     console.error('Error de red:', error);
