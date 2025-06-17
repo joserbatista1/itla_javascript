@@ -1,4 +1,4 @@
-export default function ReservasList({ reservas, restaurante, hora }) {
+export default function ReservasList({ reservas, restaurante, hora,handleEliminar }) {
   return (
     <div id="reservas" className="my-6">
       <h2 className="text-xl font-semibold mb-2 ">
