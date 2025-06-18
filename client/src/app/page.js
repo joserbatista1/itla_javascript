@@ -12,16 +12,29 @@ export default function HomePage() {
   const [disponibilidad, setDisponibilidad] = useState([]);
   const [form, setForm] = useState({ nombre: "", cantidad: 1, restaurante: "", hora });
   const [reservas, setReservas] = useState([]);
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dd = String(hoy.getDate()).padStart(2, '0');
+  const fechaActual = `${yyyy}-${mm}-${dd}`;
 
-  useEffect(() => {
-    setRestaurantes([
-      { nombre: "Ember", horarios: ["18:00-20:00", "20:00-22:00"] },
-      { nombre: "Zao", horarios: ["18:00-20:00", "20:00-22:00"] },
-      { nombre: "Grappa", horarios: ["18:00-20:00", "20:00-22:00"] },
-      { nombre: "Larimar", horarios: ["18:00-20:00", "20:00-22:00"] },
-    ]);
-    setForm(f => ({ ...f, restaurante: "Ember", hora }));
-  }, []);
+useEffect(() => {
+  setRestaurantes([
+    { nombre: "Ember", horarios: ["18:00-20:00", "20:00-22:00"] },
+    { nombre: "Zao", horarios: ["18:00-20:00", "20:00-22:00"] },
+    { nombre: "Grappa", horarios: ["18:00-20:00", "20:00-22:00"] },
+    { nombre: "Larimar", horarios: ["18:00-20:00", "20:00-22:00"] },
+  ]);
+
+  const hoy = new Date();
+  const yyyy = hoy.getFullYear();
+  const mm = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dd = String(hoy.getDate()).padStart(2, '0');
+  const fechaActual = `${yyyy}-${mm}-${dd}`;
+
+  setForm(f => ({ ...f, restaurante: "Ember", hora, fecha: fechaActual }));
+}, []);
+
 
   useEffect(() => {
     fetch(`https://server-production-2e7c.up.railway.app/api/reservas?hora=${hora}`)
@@ -67,6 +80,8 @@ export default function HomePage() {
 
     if (res.ok) {
       setReservas((prev) => prev.filter((r) => r.id !== id));
+      const dispo = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas?hora=${hora}`).then(r => r.json());
+      setDisponibilidad(dispo);
     } else {
       console.error(`Error al eliminar la reserva ${res.status}`);
     }
@@ -113,7 +128,7 @@ const cancelarEdicion = () => {
       <HoraSelector hora={hora} setHora={setHora} />
       <DisponibilidadList disponibilidad={disponibilidad} onVerReservas={verReservas} />
       <ReservaForm form={form} setForm={setForm} restaurantes={restaurantes} handleSubmit={handleSubmit} />
-      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} handleEliminar={handleEliminar} handleModificar={handleModificar} />
+      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} fecha={fechaActual} handleEliminar={handleEliminar} handleModificar={handleModificar} />
       {reservaEditando && (
       <FormularioModificar
       reserva={reservaEditando}

@@ -1,5 +1,6 @@
 export default function ReservasList({ reservas, restaurante, hora,handleEliminar,handleModificar}) {
 
+  console.log(reservas);
   return (
     <div id="reservas" className="my-6">
       <h2 className="text-xl font-semibold mb-2 ">
@@ -13,9 +14,10 @@ export default function ReservasList({ reservas, restaurante, hora,handleElimina
   {reservas.map((r) => (
     <li
       key={r.id}
+      
       className="border-b py-1 flex justify-between items-center"
     >
-      <span>{r.nombre} - {r.cantidad} personas</span>
+      <span>{r.nombre} - {r.cantidad} personas - fecha {r.fecha}</span>
      <div className="flex space-x-2">
               <button
                 type="button"
