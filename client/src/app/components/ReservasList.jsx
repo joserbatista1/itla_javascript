@@ -1,4 +1,5 @@
-export default function ReservasList({ reservas, restaurante, hora,handleEliminar }) {
+export default function ReservasList({ reservas, restaurante, hora,handleEliminar,handleModificar}) {
+
   return (
     <div id="reservas" className="my-6">
       <h2 className="text-xl font-semibold mb-2 ">
@@ -15,13 +16,22 @@ export default function ReservasList({ reservas, restaurante, hora,handleElimina
       className="border-b py-1 flex justify-between items-center"
     >
       <span>{r.nombre} - {r.cantidad} personas</span>
-      <button
-        type="button"
-        onClick={() => handleEliminar(r.id)}
-        className="text-sm px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-400 transition"
-      >
-        Eliminar
-      </button>
+     <div className="flex space-x-2">
+              <button
+                type="button"
+                onClick={() => handleEliminar(r.id)}
+                className="text-sm px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-400 transition"
+              >
+                Eliminar
+              </button>
+              <button
+                type="button"
+                onClick={() => handleModificar(r.id)}
+                className="text-sm px-3 py-1 bg-gray-200 text-black rounded hover:bg-gray-400 transition"
+              >
+                Modificar
+              </button>
+            </div>
     </li>
   ))}
 </ul>

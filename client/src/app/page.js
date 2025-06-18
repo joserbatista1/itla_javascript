@@ -1,5 +1,5 @@
 "use client";
-
+import FormularioModificar from "./components/ModificarForm";
 import { useState, useEffect } from "react";
 import HoraSelector from "./components/HoraSelector";
 import DisponibilidadList from "./components/DisponibilidadList";
@@ -53,7 +53,7 @@ export default function HomePage() {
     setForm(f => ({ ...f, restaurante }));
     setReservas(data);
 
-     const element = document.getElementById('reservas');
+    const element = document.getElementById('reservas');
       if (element) {
     element.scrollIntoView({ behavior: 'smooth' });
     }
@@ -74,6 +74,38 @@ export default function HomePage() {
     console.error('Error de red:', error);
   }
 };
+const [reservaEditando, setReservaEditando] = useState(null);
+
+const handleModificar = (id) => {
+  const reserva = reservas.find((r) => r.id === id);
+  setReservaEditando(reserva);
+};
+
+const guardarCambios = async (reservaActualizada) => {
+  try {
+    const res = await fetch(`https://server-production-2e7c.up.railway.app/api/reservas/modificar/${reservaActualizada.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(reservaActualizada),
+    });
+
+    if (res.ok) {
+      const actualizadas = reservas.map((r) =>
+        r.id === reservaActualizada.id ? reservaActualizada : r
+      );
+      setReservas(actualizadas);
+      setReservaEditando(null);
+    } else {
+      alert("Error al guardar cambios");
+    }
+  } catch (err) {
+    console.error("Error de red:", err);
+  }
+};
+
+const cancelarEdicion = () => {
+  setReservaEditando(null);
+};
 
 
   return (
@@ -81,7 +113,15 @@ export default function HomePage() {
       <HoraSelector hora={hora} setHora={setHora} />
       <DisponibilidadList disponibilidad={disponibilidad} onVerReservas={verReservas} />
       <ReservaForm form={form} setForm={setForm} restaurantes={restaurantes} handleSubmit={handleSubmit} />
-      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} handleEliminar={handleEliminar} />
+      <ReservasList reservas={reservas} restaurante={form.restaurante} hora={hora} handleEliminar={handleEliminar} handleModificar={handleModificar} />
+      {reservaEditando && (
+      <FormularioModificar
+      reserva={reservaEditando}
+      onGuardar={guardarCambios}
+      onCancelar={cancelarEdicion}
+  />
+)}
+
     </div>
   );
 }
